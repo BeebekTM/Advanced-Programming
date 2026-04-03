@@ -11,6 +11,7 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
+// Servlet = controller
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
     @Override
