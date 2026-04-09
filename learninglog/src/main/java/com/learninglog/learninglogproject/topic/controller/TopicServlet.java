@@ -10,12 +10,26 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.List;
 
 @WebServlet("/topic")
 public class TopicServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String action = req.getParameter("page");
+
+        if("list".equals(action)){
+            try{
+                List<Topic> topicList = TopicDAO.fetchTopics();
+                req.setAttribute("topics", topicList);
+            }
+            catch(Exception e){
+                req.setAttribute("error", "Unable to fetch the topics" + e.getMessage());
+            }
+            req.getRequestDispatcher(("pages/topicList.jsp")).forward(req,resp);
+        }
         req.getRequestDispatcher("pages/addTopic.jsp").forward(req,resp);
+
     }
 
     @Override
@@ -41,7 +55,5 @@ public class TopicServlet extends HttpServlet {
             }catch (Exception e){
 
             }
-
-
     }
 }
