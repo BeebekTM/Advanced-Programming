@@ -9,9 +9,8 @@
 <html>
 <head>
     <jsp:include page="/components/header.jsp"/>
-
+    <h2>Edit Form</h2>
    <form method="post" action="editTopic">
-       <h2>Edit Form</h2>
        ID:
        <input type="text" name="id" value="${topicData.id}" readonly>
        <br>

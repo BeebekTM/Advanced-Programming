@@ -53,11 +53,26 @@ public class TopicDAO {
             if(rs.next()){
                 String topicName = rs.getString("name");
                 int userId = rs.getInt("user_Id");
-                Timestamp createdDate = rs.getTimestamp("created_Date");
+                Timestamp createdDate = rs.getTimestamp("createdDate");
                 Topic topic = new Topic(id, topicName, userId, createdDate);
                 return topic;
             }
             return null;
+        }
+    }
+
+    public static boolean updateTopic(int id, String name) throws SQLException {
+        String query = "UPDATE topic SET name = ? WHERE id = ?";
+        try(Connection conn = DBConnection.getConnection();
+        PreparedStatement st = conn.prepareStatement(query)){
+            st.setString(1,name);
+            st.setInt(2,id);
+            int updatedRows = st.executeUpdate();
+            if(updatedRows>0){
+                return true;
+            }else{
+                return false;
+            }
         }
     }
 }
